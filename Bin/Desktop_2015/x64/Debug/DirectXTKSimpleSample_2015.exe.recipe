@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Debug\DirectXTKSimpleSample_2015.exe</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles>
+    <ContentFile>
+      <FullPath>G:\AbertayPrograming\DX\Assessment\DX_Assessment\colour_ps.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>G:\AbertayPrograming\DX\Assessment\DX_Assessment\colour_vs.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>G:\AbertayPrograming\DX\Assessment\DX_Assessment\light_ps.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>G:\AbertayPrograming\DX\Assessment\DX_Assessment\light_vs.cso</FullPath>
+    </ContentFile>
+  </ContentFiles>
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>

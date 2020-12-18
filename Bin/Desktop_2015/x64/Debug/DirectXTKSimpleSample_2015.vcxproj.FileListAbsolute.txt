@@ -1,0 +1,2 @@
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Debug\DirectXTKSimpleSample_2015.exe
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Debug\DirectXTKSimpleSample_2015.pdb

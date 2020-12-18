@@ -1,0 +1,25 @@
+﻿  compilation object save succeeded; see G:\AbertayPrograming\DX\Assessment\DX_Assessment\colour_ps.cso
+  compilation object save succeeded; see G:\AbertayPrograming\DX\Assessment\DX_Assessment\colour_vs.cso
+  compilation object save succeeded; see G:\AbertayPrograming\DX\Assessment\DX_Assessment\light_ps.cso
+  compilation object save succeeded; see G:\AbertayPrograming\DX\Assessment\DX_Assessment\light_vs.cso
+  pch.cpp
+  Camera.cpp
+  DeviceResources.cpp
+  Game.cpp
+  Input.cpp
+  Light.cpp
+  Main.cpp
+  modelclass.cpp
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(30,39): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(31,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(46,39): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(47,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(63,39): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(64,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(255,28): warning C4477: 'fscanf_s' : format string '%s' requires an argument of type 'unsigned int', but variadic argument 2 has type 'size_t'
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(255,28): message : this argument is used as a buffer size
+  RenderTexture.cpp
+  Shader.cpp
+  Generating Code...
+     Creating library Bin\Desktop_2015\x64\Debug\DirectXTKSimpleSample_2015.lib and object Bin\Desktop_2015\x64\Debug\DirectXTKSimpleSample_2015.exp
+  DirectXTKSimpleSample_2015.vcxproj -> G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Debug\DirectXTKSimpleSample_2015.exe
