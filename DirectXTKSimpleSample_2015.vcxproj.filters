@@ -38,6 +38,12 @@
     <ClInclude Include="RenderTexture.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="modeldataclass.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="modelloadclass.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -60,6 +66,12 @@
     </ClCompile>
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="RenderTexture.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="modeldataclass.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="modelloadclass.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
   </ItemGroup>

@@ -11,6 +11,9 @@ ModelClass::ModelClass()
 	m_vertexBuffer = 0;
 	m_indexBuffer = 0;
 
+	m_vertexCount = 0;
+	m_indexCount = 0;
+	//m_material = NULL;
 }
 ModelClass::~ModelClass()
 {

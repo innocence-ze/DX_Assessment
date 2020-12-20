@@ -61,6 +61,7 @@ private:
     void Clear();
     void CreateDeviceDependentResources();
     void CreateWindowSizeDependentResources();
+	void MainCameraControlUpdate(DX::StepTimer const& timer);
 
     // Device resources.
     std::unique_ptr<DX::DeviceResources>    m_deviceResources;
@@ -89,6 +90,7 @@ private:
 
 	//Cameras
 	Camera																	m_Camera01;
+	Camera																	m_Camera02;
 
 	//textures 
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_texture1;

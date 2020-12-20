@@ -29,10 +29,10 @@ Camera::Camera()
 	m_right.x = 0.0f;
 	m_right.y = 0.0f;
 	m_right.z = 0.0f;
-	
+
 	//
-	m_movespeed = 0.30;
-	m_camRotRate = 3.0;
+	m_movespeed = 3;
+	m_camRotRate = 30.0;
 
 	//force update with initial values to generate other camera data correctly for first update. 
 	Update();
@@ -46,19 +46,24 @@ Camera::~Camera()
 void Camera::Update()
 {
 	//rotation in yaw - using the paramateric equation of a circle
-	m_forward.x = sin((m_orientation.y)*3.1415f / 180.0f);
-	m_forward.z = cos((m_orientation.y)*3.1415f / 180.0f);
+	m_forward.x = sin((m_orientation.y) * 3.1415f / 180.0f) * sin((m_orientation.x) * 3.1415f / 180.0f);
+	m_forward.z = cos((m_orientation.y) * 3.1415f / 180.0f) * sin((m_orientation.x) * 3.1415f / 180.0f);
+	m_forward.y = cos((m_orientation.x) * 3.1415f / 180.0f);
 	m_forward.Normalize();
 
 	//create right vector from look Direction
 	m_forward.Cross(DirectX::SimpleMath::Vector3::UnitY, m_right);
+	m_right.Cross(m_forward, m_up);
 
 	//update lookat point
 	m_lookat = m_position + m_forward;
 
 	//apply camera vectors and create camera matrix
 	m_cameraMatrix = (DirectX::SimpleMath::Matrix::CreateLookAt(m_position, m_lookat, DirectX::SimpleMath::Vector3::UnitY));
-
+	
+	//float xRotation;
+	//float yRotation;
+	//m_cameraMatrix = DirectX::SimpleMath::Matrix::CreateTranslation(m_position) * DirectX::SimpleMath::Matrix::CreateRotationX(xRotation) * DirectX::SimpleMath::Matrix::CreateRotationY(yRotation);
 
 }
 
@@ -82,8 +87,20 @@ DirectX::SimpleMath::Vector3 Camera::getForward()
 	return m_forward;
 }
 
+DirectX::SimpleMath::Vector3 Camera::getRight()
+{
+	return m_right;
+}
+
+DirectX::SimpleMath::Vector3 Camera::getUp() 
+{
+	return m_up;
+}
+
 void Camera::setRotation(DirectX::SimpleMath::Vector3 newRotation)
 {
+	if (newRotation.x > -1.0)		newRotation.x = -1.0f;
+	if (newRotation.x < -179.0f)		newRotation.x = -179.0f;
 	m_orientation = newRotation;
 }
 

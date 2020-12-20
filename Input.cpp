@@ -21,8 +21,16 @@ void Input::Initialise(HWND window)
 	m_GameInput.back		= false;
 	m_GameInput.right		= false;
 	m_GameInput.left		= false;
+
 	m_GameInput.rotRight	= false;
 	m_GameInput.rotLeft		= false;
+	m_GameInput.rotUp		= false;
+	m_GameInput.rotDown		= false;
+
+	m_mouseLastX = m_mouse->GetState().x;
+	m_mouseLastY = m_mouse->GetState().y;
+	m_mouseDetX  = 0;
+	m_mouseDetY  = 0;
 }
 
 void Input::Update()
@@ -54,6 +62,27 @@ void Input::Update()
 	else		m_GameInput.back = false;
 
 
+	m_mouseDetX = mouse.x - m_mouseLastX;
+	m_mouseDetY = mouse.y - m_mouseLastY;
+	m_mouseLastX = mouse.x;
+	m_mouseLastY = mouse.y;
+
+	//mouse right button pressed for rotate
+	if (m_MouseTracker.rightButton == DirectX::Mouse::ButtonStateTracker::ButtonState::HELD) 
+	{
+		if (m_mouseDetX < 0)	m_GameInput.rotLeft = true;
+		else					m_GameInput.rotLeft = false;
+
+		if (m_mouseDetX > 0)	m_GameInput.rotRight = true;
+		else					m_GameInput.rotRight = false;
+
+		if (m_mouseDetY < 0)	m_GameInput.rotDown = true;
+		else					m_GameInput.rotDown = false;
+
+		if (m_mouseDetY > 0)	m_GameInput.rotUp = true;
+		else					m_GameInput.rotUp = false;
+	}
+
 }
 
 bool Input::Quit()
@@ -64,4 +93,14 @@ bool Input::Quit()
 InputCommands Input::getGameInput()
 {
 	return m_GameInput;
+}
+
+int Input::GetMouseDetX()
+{
+	return m_mouseDetX;
+}
+
+int Input::GetMouseDetY() 
+{
+	return m_mouseDetY;
 }

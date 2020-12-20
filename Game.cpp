@@ -63,9 +63,11 @@ void Game::Initialize(HWND window, int width, int height)
 	m_Light.setDirection(-1.0f, -1.0f, 0.0f);
 
 	//setup camera
-	m_Camera01.setPosition(Vector3(0.0f, 0.0f, 4.0f));
+	m_Camera01.setPosition(Vector3(0.0f, 0.0f, 0.0f));
 	m_Camera01.setRotation(Vector3(-90.0f, -180.0f, 0.0f));	//orientation is -90 becuase zero will be looking up at the sky straight up. 
 
+	m_Camera02.setPosition(Vector3(0.0f, 10.0f, 0.0f));
+	m_Camera02.setRotation(Vector3(-180.0f, 0.0f, 0.0f));
 	
 #ifdef DXTK_AUDIO
     // Create DirectXTK for Audio objects
@@ -124,35 +126,10 @@ void Game::Tick()
 // Updates the world.
 void Game::Update(DX::StepTimer const& timer)
 {
-	//note that currently.  Delta-time is not considered in the game object movement. 
-	if (m_gameInputCommands.left)
-	{
-		Vector3 rotation = m_Camera01.getRotation();
-		rotation.y = rotation.y += m_Camera01.getRotationSpeed();
-		m_Camera01.setRotation(rotation);
-	}
-	if (m_gameInputCommands.right)
-	{
-		Vector3 rotation = m_Camera01.getRotation();
-		rotation.y = rotation.y -= m_Camera01.getRotationSpeed();
-		m_Camera01.setRotation(rotation);
-	}
-	if (m_gameInputCommands.forward)
-	{
-		Vector3 position = m_Camera01.getPosition(); //get the position
-		position += (m_Camera01.getForward()*m_Camera01.getMoveSpeed()); //add the forward vector
-		m_Camera01.setPosition(position);
-	}
-	if (m_gameInputCommands.back)
-	{
-		Vector3 position = m_Camera01.getPosition(); //get the position
-		position -= (m_Camera01.getForward()*m_Camera01.getMoveSpeed()); //add the forward vector
-		m_Camera01.setPosition(position);
-	}
+	MainCameraControlUpdate(timer);
+	m_Camera02.Update();
 
-	m_Camera01.Update();	//camera update.
 
-	m_view = m_Camera01.getCameraMatrix();
 	m_world = Matrix::Identity;
 
 #ifdef DXTK_AUDIO
@@ -249,7 +226,7 @@ void Game::Render()
 
 	///////////////////////////////////////draw our sprite with the render texture displayed on it. 
 	m_sprites->Begin();
-	m_sprites->Draw(m_FirstRenderPass->getShaderResourceView(), m_CameraViewRect);
+		m_sprites->Draw(m_FirstRenderPass->getShaderResourceView(), m_CameraViewRect);
 	m_sprites->End();
 
     // Show the new frame.
@@ -268,7 +245,7 @@ void Game::RenderTexturePass1()
 
 	// Turn our shaders on,  set parameters
 	m_BasicShaderPair.EnableShader(context);
-	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_view, &m_projection, &m_Light, m_texture1.Get());
+	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_Camera02.getCameraMatrix(), &m_projection, &m_Light, m_texture1.Get());
 
 	//render our model
 	m_BasicModel.Render(context);
@@ -279,7 +256,7 @@ void Game::RenderTexturePass1()
 
 	//setup and draw sphere
 	m_BasicShaderPair.EnableShader(context);
-	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_view, &m_projection, &m_Light, m_texture2.Get());
+	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_Camera02.getCameraMatrix(), &m_projection, &m_Light, m_texture2.Get());
 	m_BasicModel2.Render(context);
 
 	//prepare transform for floor object. 
@@ -289,7 +266,7 @@ void Game::RenderTexturePass1()
 
 	//setup and draw cube
 	m_BasicShaderPair.EnableShader(context);
-	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_view, &m_projection, &m_Light, m_texture1.Get());
+	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_Camera02.getCameraMatrix(), &m_projection, &m_Light, m_texture1.Get());
 	m_BasicModel3.Render(context);
 
 	// Reset the render target back to the original back buffer and not the render to texture anymore.	
@@ -451,4 +428,53 @@ void Game::OnDeviceRestored()
 
     CreateWindowSizeDependentResources();
 }
+#pragma endregion
+
+#pragma region PrivateMethod
+
+void Game::MainCameraControlUpdate(DX::StepTimer const& timer) {
+	//note that currently.  Delta-time is not considered in the game object movement. 
+	if (m_gameInputCommands.left)
+	{
+		Vector3 position = m_Camera01.getPosition(); //get the position
+		position -= (m_Camera01.getRight() * m_Camera01.getMoveSpeed() * timer.GetElapsedSeconds()); //add the forward vector
+		m_Camera01.setPosition(position);
+	}
+	if (m_gameInputCommands.right)
+	{
+		Vector3 position = m_Camera01.getPosition(); //get the position
+		position += (m_Camera01.getRight() * m_Camera01.getMoveSpeed() * timer.GetElapsedSeconds()); //add the forward vector
+		m_Camera01.setPosition(position);
+	}
+	if (m_gameInputCommands.forward)
+	{
+		Vector3 position = m_Camera01.getPosition(); //get the position
+		position += (m_Camera01.getForward() * m_Camera01.getMoveSpeed() * timer.GetElapsedSeconds()); //add the forward vector
+		m_Camera01.setPosition(position);
+	}
+	if (m_gameInputCommands.back)
+	{
+		Vector3 position = m_Camera01.getPosition(); //get the position
+		position -= (m_Camera01.getForward() * m_Camera01.getMoveSpeed() * timer.GetElapsedSeconds()); //add the forward vector
+		m_Camera01.setPosition(position);
+	}
+
+	if (m_gameInputCommands.rotLeft || m_gameInputCommands.rotRight)
+	{
+		Vector3 rotation = m_Camera01.getRotation();
+		rotation.y = rotation.y -= m_Camera01.getRotationSpeed() * timer.GetElapsedSeconds() * m_input.GetMouseDetX();
+		m_Camera01.setRotation(rotation);
+	}
+	if (m_gameInputCommands.rotUp || m_gameInputCommands.rotDown)
+	{
+		Vector3 rotation = m_Camera01.getRotation();
+		rotation.x = rotation.x -= m_Camera01.getRotationSpeed() * timer.GetElapsedSeconds() * m_input.GetMouseDetY();
+		m_Camera01.setRotation(rotation);
+	}
+
+	m_Camera01.Update();	//camera update.
+
+	m_view = m_Camera01.getCameraMatrix();
+}
+
 #pragma endregion

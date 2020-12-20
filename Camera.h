@@ -10,6 +10,9 @@ public:
 	void							setPosition(DirectX::SimpleMath::Vector3 newPosition);
 	DirectX::SimpleMath::Vector3	getPosition();
 	DirectX::SimpleMath::Vector3	getForward();
+	DirectX::SimpleMath::Vector3	getRight();
+	DirectX::SimpleMath::Vector3	getUp();
+
 	void							setRotation(DirectX::SimpleMath::Vector3 newRotation);
 	DirectX::SimpleMath::Vector3	getRotation();
 	float							getMoveSpeed();

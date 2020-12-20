@@ -10,8 +10,11 @@ struct InputCommands
 	bool back;
 	bool right;
 	bool left;
+
 	bool rotRight;
 	bool rotLeft;
+	bool rotDown;
+	bool rotUp;
 };
 
 
@@ -24,6 +27,8 @@ public:
 	void Update();
 	bool Quit();
 	InputCommands getGameInput();
+	int GetMouseDetX();
+	int GetMouseDetY();
 
 
 private:
@@ -33,5 +38,8 @@ private:
 	DirectX::Keyboard::KeyboardStateTracker m_KeyboardTracker;
 	DirectX::Mouse::ButtonStateTracker		m_MouseTracker;
 	InputCommands							m_GameInput;
+
+	int m_mouseLastX, m_mouseLastY;
+	int m_mouseDetX,  m_mouseDetY;
 };
 
