@@ -21,7 +21,7 @@ using namespace DirectX;
 
 class ModelDataClass
 {
-public:
+private:
 	struct VertexType
 	{
 		DirectX::SimpleMath::Vector3 position;
@@ -40,6 +40,8 @@ public:
 public:
 	ModelDataClass();
 	~ModelDataClass();
+
+	friend class ModelLoadClass;
 
 	//create data, release data and render data
 	bool InitializeModel(ID3D11Device* device);

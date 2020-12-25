@@ -20,16 +20,16 @@ ModelLoadClass::~ModelLoadClass()
 
 void ModelLoadClass::Shutdown() 
 {
-	ReleaseObjModelArray();
+	ReleaseModelArray();
 }
 
-void ModelLoadClass::ReleaseObjModelArray()
+void ModelLoadClass::ReleaseModelArray()
 {
-	for (size_t i = 0; i < m_ObjModelArray.size(); ++i)
+	for (size_t i = 0; i < m_modelArray.size(); ++i)
 	{
-		m_ObjModelArray[i]->Shutdown();
-		delete m_ObjModelArray[i];
-		m_ObjModelArray[i] = NULL;
+		m_modelArray[i]->Shutdown();
+		delete m_modelArray[i];
+		m_modelArray[i] = NULL;
 	}
 }
 
@@ -37,8 +37,10 @@ bool ModelLoadClass::Initialize(ID3D11Device* device, std::string objFileName)
 {
 	bool result;
 
+	m_materialFileName = "";
+
 	//load obj file, put in the vector of ModelDataClass
-	result = LoadObjFile(objFileName);
+	result = LoadModelFile(objFileName);
 	if (!result)
 	{
 		MessageBox(NULL, L"Load .obj file failure", NULL, MB_OK);
@@ -46,15 +48,21 @@ bool ModelLoadClass::Initialize(ID3D11Device* device, std::string objFileName)
 	}
 
 	//initialize the object in the vector of ModelDataClass
-	result = InitializeObjModelArray(device);
+	result = InitializeModelArray(device);
 	if (!result)
 	{
 		MessageBox(NULL, L"OBJModelArray failure", NULL, MB_OK);
 		return false;
 	}
 
+
+	if (m_materialFileName == "")
+	{
+		return true;
+	}
+
 	//load material file of obj
-	result = LoadObjMaterialFile(m_ObjMaterialFileName);
+	result = LoadMaterialFile(m_materialFileName);
 	if (!result)
 	{
 		MessageBox(NULL, L"Load OBJ Material file failure", NULL, MB_OK);
@@ -64,18 +72,33 @@ bool ModelLoadClass::Initialize(ID3D11Device* device, std::string objFileName)
 	return true;
 }
 
-bool ModelLoadClass::InitializeObjModelArray(ID3D11Device* device)
+bool ModelLoadClass::InitializeSphere(ID3D11Device* device, float radius) 
+{
+
+}
+
+bool ModelLoadClass::InitializeBox(ID3D11Device* device, float x, float y, float z)
+{
+
+}
+
+bool ModelLoadClass::InitializeTeapot(ID3D11Device* device)
+{
+
+}
+
+bool ModelLoadClass::InitializeModelArray(ID3D11Device* device)
 {
 	bool result;
-	for (size_t i = 0; i < m_ObjModelArray.size(); ++i)
+	for (size_t i = 0; i < m_modelArray.size(); ++i)
 	{
-		result = m_ObjModelArray[i]->InitializeModel(device);
+		result = m_modelArray[i]->InitializeModel(device);
 		if (!result)		return false;
 	}
 	return true;
 }
 
-bool ModelLoadClass::LoadObjFile(std::string ObjFileName)
+bool ModelLoadClass::LoadModelFile(std::string ObjFileName)
 {
 	std::ifstream in(ObjFileName);
 	if (!in)		return false;
@@ -102,7 +125,7 @@ bool ModelLoadClass::LoadObjFile(std::string ObjFileName)
 			record >> word;
 			record >> word;
 			MaterialFileName = word;
-			m_ObjMaterialFileName = MaterialFileName;
+			m_materialFileName = MaterialFileName;
 		}
 		else if (line.find("Object") != std::string::npos)
 		{
@@ -127,7 +150,7 @@ bool ModelLoadClass::LoadObjFile(std::string ObjFileName)
 				if (line.find("faces") != std::string::npos)
 				{
 					// store model object into Array before quit circle
-					m_ObjModelArray.push_back(memObjModel);
+					m_modelArray.push_back(memObjModel);
 					break;
 				}
 
@@ -358,7 +381,7 @@ bool ModelLoadClass::LoadObjFile(std::string ObjFileName)
 	return true;
 }
 
-bool ModelLoadClass::LoadObjMaterialFile(std::string MaterialFileName)
+bool ModelLoadClass::LoadMaterialFile(std::string MaterialFileName)
 {
 	std::ifstream in(MaterialFileName);
 	if (!in)
@@ -384,9 +407,9 @@ bool ModelLoadClass::LoadObjMaterialFile(std::string MaterialFileName)
 			record >> word;
 
 			//traversal whole array, find the model which have corresponding material
-			for (size_t i = 0; i < m_ObjModelArray.size(); ++i)
+			for (size_t i = 0; i < m_modelArray.size(); ++i)
 			{
-				if (word == m_ObjModelArray[i]->GetMaterialName())
+				if (word == m_modelArray[i]->GetMaterialName())
 				{
 					index = i;
 					break;
@@ -406,7 +429,7 @@ bool ModelLoadClass::LoadObjMaterialFile(std::string MaterialFileName)
 					re >> word;
 					re >> word;
 					float SpecularPower = atof(&word[0]);
-					m_ObjModelArray[index]->SetSpecularPower(SpecularPower);
+					m_modelArray[index]->SetSpecularPower(SpecularPower);
 				}
 				//ambient color
 				else if (line.find("Ka") != std::string::npos)
@@ -419,7 +442,7 @@ bool ModelLoadClass::LoadObjMaterialFile(std::string MaterialFileName)
 					float g = atof(&word[0]);
 					re >> word;
 					float b = atof(&word[0]);
-					m_ObjModelArray[index]->SetAmbientMaterial(r, g, b);
+					m_modelArray[index]->SetAmbientMaterial(r, g, b);
 				}
 				//diffuse color
 				else if (line.find("Kd") != std::string::npos)
@@ -432,7 +455,7 @@ bool ModelLoadClass::LoadObjMaterialFile(std::string MaterialFileName)
 					float g = atof(&word[0]);
 					re >> word;
 					float b = atof(&word[0]);
-					m_ObjModelArray[index]->SetDiffuseMaterial(r, g, b);
+					m_modelArray[index]->SetDiffuseMaterial(r, g, b);
 
 				}
 				//specular color
@@ -446,7 +469,7 @@ bool ModelLoadClass::LoadObjMaterialFile(std::string MaterialFileName)
 					float g = atof(&word[0]);
 					re >> word;
 					float b = atof(&word[0]);
-					m_ObjModelArray[index]->SetSpecularMaterial(r, g, b);
+					m_modelArray[index]->SetSpecularMaterial(r, g, b);
 				}
 				//
 				else if (line.find("Ke") != std::string::npos)

@@ -178,6 +178,7 @@
     <ClInclude Include="ReadData.h" />
     <ClInclude Include="RenderTexture.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SkyBox.h" />
     <ClInclude Include="StepTimer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +199,7 @@
     </ClCompile>
     <ClCompile Include="RenderTexture.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

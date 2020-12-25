@@ -44,6 +44,9 @@
     <ClInclude Include="modelloadclass.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -72,6 +75,9 @@
       <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="modelloadclass.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
   </ItemGroup>

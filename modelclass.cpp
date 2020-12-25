@@ -280,6 +280,7 @@ bool ModelClass::LoadModel(char* filename)
 				fscanf_s(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
 				norms.push_back(normal);
 			}
+			//TODO
 			else if (strcmp(lineHeader, "f") == 0) // Face
 			{
 				unsigned int face[9];
