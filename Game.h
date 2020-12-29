@@ -11,6 +11,8 @@
 #include "Input.h"
 #include "Camera.h"
 #include "RenderTexture.h"
+#include "modelloadclass.h"
+#include "SkyBox.h"
 
 
 // A basic game implementation that creates a D3D11 device and
@@ -95,12 +97,18 @@ private:
 	//textures 
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_texture1;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_texture2;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_skyboxTexture;
 
 	//Shaders
 	Shader																	m_BasicShaderPair;
-	ModelClass																m_BasicModel;
-	ModelClass																m_BasicModel2;
-	ModelClass																m_BasicModel3;
+	Shader																	m_SkyBoxShaderPair;
+	//ModelClass																m_BasicModel;
+	//ModelClass																m_BasicModel2;
+	//ModelClass																m_BasicModel3;
+    ModelLoadClass                                                          m_BasicModel;
+    ModelLoadClass                                                          m_BasicModel2;
+    ModelLoadClass                                                          m_BasicModel3;
+    SkyBox*                                                                 m_SkyBox;
 
 	//RenderTextures
 	RenderTexture*															m_FirstRenderPass;

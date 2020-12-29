@@ -68,6 +68,7 @@ void Game::Initialize(HWND window, int width, int height)
 
 	m_Camera02.setPosition(Vector3(0.0f, 10.0f, 0.0f));
 	m_Camera02.setRotation(Vector3(-180.0f, 0.0f, 0.0f));
+
 	
 #ifdef DXTK_AUDIO
     // Create DirectXTK for Audio objects
@@ -196,6 +197,16 @@ void Game::Render()
 	//create our render to texture.
 	RenderTexturePass1();
 
+	/////////////////////////////////////////////////////////////draw skybox
+	m_world = SimpleMath::Matrix::Identity;
+	SimpleMath::Matrix skyboxScale =		XMMatrixScaling(30.0f, 30.0f, 30.0f);
+	SimpleMath::Matrix skyboxTranslation =	XMMatrixTranslation(XMVectorGetX(m_Camera01.getPosition()), XMVectorGetY(m_Camera01.getPosition()), XMVectorGetZ(m_Camera01.getPosition()));
+	m_world = skyboxScale * skyboxTranslation;
+	m_SkyBoxShaderPair.EnableShader(context);
+	m_SkyBoxShaderPair.SetShaderParameters(context, &m_world, &m_view,&m_projection,&m_Light,m_skyboxTexture.Get());
+
+	m_SkyBox->Render(context);
+
 	/////////////////////////////////////////////////////////////draw our scene normally. 
 	m_world = SimpleMath::Matrix::Identity;
 	// Turn our shaders on,  set parameters
@@ -205,7 +216,8 @@ void Game::Render()
 	//render our model
 	m_BasicModel.Render(context);
 
-	//prepare transform for second object. 
+	////prepare transform for second object. 
+	m_world = SimpleMath::Matrix::Identity;
 	SimpleMath::Matrix newPosition1 = SimpleMath::Matrix::CreateTranslation(2.0f, 0.0f, 0.0f);
 	m_world = m_world * newPosition1;
 
@@ -250,9 +262,9 @@ void Game::RenderTexturePass1()
 	//render our model
 	m_BasicModel.Render(context);
 
-	//prepare transform for second object. 
-	SimpleMath::Matrix newPosition = SimpleMath::Matrix::CreateTranslation(2.0f, 0.0f, 0.0f);
-	m_world = m_world * newPosition;
+	////prepare transform for second object. 
+	//SimpleMath::Matrix newPosition = SimpleMath::Matrix::CreateTranslation(2.0f, 0.0f, 0.0f);
+	//m_world = m_world * newPosition;
 
 	//setup and draw sphere
 	m_BasicShaderPair.EnableShader(context);
@@ -370,10 +382,13 @@ void Game::CreateDeviceDependentResources()
 	m_batch = std::make_unique<PrimitiveBatch<VertexPositionColor>>(context);
 
 	//setup our test model
-	m_BasicModel.InitializeSphere(device);
+	//m_BasicModel.InitializeSphere(device);
+	m_BasicModel.InitializeSphere(device, 1);
 
-	m_BasicModel2.InitializeModel(device,"drone.obj");
-	m_BasicModel3.InitializeBox(device, 10.0f, 0.1f, 10.0f);	//box includes dimensions
+	//m_BasicModel2.InitializeModel(device,"drone.obj");
+	//m_BasicModel3.InitializeBox(device, 10.0f, 0.1f, 10.0f);	//box includes dimensions
+	m_BasicModel2.Initialize(device, "drone.obj");
+	m_BasicModel3.InitializeBox(device, 10, 0.1f, 10);
 
 	//load and set up our Vertex and Pixel Shaders
 	m_BasicShaderPair.InitStandard(device, L"light_vs.cso", L"light_ps.cso");
@@ -381,10 +396,14 @@ void Game::CreateDeviceDependentResources()
 	//load Textures
 	CreateDDSTextureFromFile(device, L"seafloor.dds",		nullptr,	m_texture1.ReleaseAndGetAddressOf());
 	CreateDDSTextureFromFile(device, L"EvilDrone_Diff.dds", nullptr,	m_texture2.ReleaseAndGetAddressOf());
+	
 
 	//Initialise Render to texture
 	m_FirstRenderPass = new RenderTexture(device, 800, 600, 1, 2);	//for our rendering, We dont use the last two properties. but.  they cant be zero and they cant be the same. 
 
+	m_SkyBox = new SkyBox(device, 10, 10);
+	m_SkyBoxShaderPair.InitStandard(device, L"skymap_vs.cso", L"skymap_ps.cso");
+	CreateDDSTextureFromFile(device, L"skybox.dds", nullptr, m_skyboxTexture.ReleaseAndGetAddressOf());
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.

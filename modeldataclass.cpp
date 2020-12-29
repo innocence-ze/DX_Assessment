@@ -53,6 +53,7 @@ void ModelDataClass::Render(ID3D11DeviceContext* deviceContext)
 {
 	// Put the vertex and index buffers on the graphics pipeline
 	RenderBuffers(deviceContext);
+	deviceContext->DrawIndexed(m_indexCount, 0, 0);
 }
 
 bool ModelDataClass::InitializeBuffers(ID3D11Device* d3dDevice) 
@@ -62,7 +63,8 @@ bool ModelDataClass::InitializeBuffers(ID3D11Device* d3dDevice)
 	VertexType* vertices;
 	unsigned long* indices;
 
-	m_vertexCount = m_indexCount = m_vertexData.size();
+	m_vertexCount = m_vertexData.size();
+	m_indexCount = m_IndexData.size();
 
 	// Create the vertex array.
 	vertices = new VertexType[m_vertexCount];
@@ -81,7 +83,7 @@ bool ModelDataClass::InitializeBuffers(ID3D11Device* d3dDevice)
 	}
 	for (int i = 0; i < m_indexCount; i++)
 	{
-		indices[i] = i;
+		indices[i] = m_IndexData[i];
 	}
 
 	// Set up the description of the static vertex buffer.
@@ -179,5 +181,17 @@ void ModelDataClass::ReleaseMaterial()
 	{
 		delete m_material;
 		m_material = NULL;
+	}
+}
+
+void ModelDataClass::ConvertToVertexType(const std::vector<DirectX::VertexPositionNormalTexture> vpnts)
+{
+	for (const auto& val : vpnts) 
+	{
+		ModelDataClass::VertexType* vertex = new ModelDataClass::VertexType();
+		vertex->position = val.position;
+		vertex->normal = val.normal;
+		vertex->texture = val.textureCoordinate;
+		m_vertexData.push_back(vertex);
 	}
 }

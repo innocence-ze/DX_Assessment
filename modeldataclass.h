@@ -48,13 +48,14 @@ public:
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
 
-	int GetIndexCount();
+	int GetIndexCount() { return m_indexCount; }
 
 	//return the reference of data model's array
 	std::vector<VertexType*>& GetVertexArrayRef() { return m_vertexData; }
+	std::vector<uint16_t>& GetIndexArrayRef() { return m_IndexData; }
 
 	//////////////////////////////////////////////////////////////////////////////////
-	//set function
+	//set function of material
 	//////////////////////////////////////////////////////////////////////////////////
 	void SetModelName(std::string modelName) { m_objModelName = modelName; }
 	void SetMaterialName(std::string materialName) { m_objMaterialName = materialName; }
@@ -64,7 +65,7 @@ public:
 	void SetSpecularPower(float specularPow) { m_material->SpecularPower = specularPow; }
 
 	//////////////////////////////////////////////////////////////////////////////////
-	//get function
+	//get function of material
 	//////////////////////////////////////////////////////////////////////////////////
 	std::string GetMaterialName() { return m_objMaterialName; }
 	XMVECTOR GetAmbientMaterial() { return XMLoadFloat3(&m_material->AmbientMaterial); }
@@ -86,12 +87,15 @@ private:
 	// release material data
 	void ReleaseMaterial();
 
+	void ConvertToVertexType(const std::vector<DirectX::VertexPositionNormalTexture> vpnts);
+
 private:
 	ID3D11Buffer* m_vertexBuffer, * m_indexBuffer;
 	int m_vertexCount, m_indexCount;
 
 	//model data load from outside
 	std::vector<VertexType*> m_vertexData;
+	std::vector<uint16_t> m_IndexData;
 	std::string m_objModelName, m_objMaterialName;
 	OBJMaterial* m_material;
 

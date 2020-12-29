@@ -113,5 +113,11 @@
     <FxCompile Include="light_vs.hlsl">
       <Filter>Assets</Filter>
     </FxCompile>
+    <FxCompile Include="skymap_vs.hlsl">
+      <Filter>Assets</Filter>
+    </FxCompile>
+    <FxCompile Include="skymap_ps.hlsl">
+      <Filter>Assets</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

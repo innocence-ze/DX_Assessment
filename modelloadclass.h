@@ -31,8 +31,11 @@ public:
 	bool Initialize(ID3D11Device* device, std::string OBJFileName);
 	bool InitializeSphere(ID3D11Device* device, float radius);
 	bool InitializeBox(ID3D11Device* device, float x, float y, float z);
-	bool InitializeTeapot(ID3D11Device* device);
+	bool InitializeTeapot(ID3D11Device* device, float size);
+	void Render(ID3D11DeviceContext*);
 	void Shutdown();
+
+
 
 	//return the array of model data
 	std::vector<ModelDataClass*> GetModelArrayCopy() { return m_modelArray; }

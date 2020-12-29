@@ -18,6 +18,14 @@ ModelLoadClass::~ModelLoadClass()
 
 }
 
+void ModelLoadClass::Render(ID3D11DeviceContext* context)
+{
+	for (size_t i = 0; i < m_modelArray.size(); i++)
+	{
+		m_modelArray[i]->Render(context);
+	}
+}
+
 void ModelLoadClass::Shutdown() 
 {
 	ReleaseModelArray();
@@ -74,17 +82,44 @@ bool ModelLoadClass::Initialize(ID3D11Device* device, std::string objFileName)
 
 bool ModelLoadClass::InitializeSphere(ID3D11Device* device, float radius) 
 {
+	ModelDataClass* model = new ModelDataClass();
 
+	std::vector<DirectX::VertexPositionNormalTexture> vpnts;
+	GeometricPrimitive::CreateSphere(vpnts, model->GetIndexArrayRef(), radius, 8, false);
+	model->ConvertToVertexType(vpnts);
+
+	m_modelArray.push_back(model);
+
+	bool result = InitializeModelArray(device);
+	return result;
 }
 
 bool ModelLoadClass::InitializeBox(ID3D11Device* device, float x, float y, float z)
 {
+	ModelDataClass* model = new ModelDataClass();
 
+	std::vector<DirectX::VertexPositionNormalTexture> vpnts;
+	GeometricPrimitive::CreateBox(vpnts, model->GetIndexArrayRef(), DirectX::SimpleMath::Vector3(x, y, z), false);
+	model->ConvertToVertexType(vpnts);
+
+	m_modelArray.push_back(model);
+
+	bool result = InitializeModelArray(device);
+	return result;
 }
 
-bool ModelLoadClass::InitializeTeapot(ID3D11Device* device)
+bool ModelLoadClass::InitializeTeapot(ID3D11Device* device, float size)
 {
+	ModelDataClass* model = new ModelDataClass();
 
+	std::vector<DirectX::VertexPositionNormalTexture> vpnts;
+	GeometricPrimitive::CreateTeapot(vpnts, model->GetIndexArrayRef(), size, 8, false);
+	model->ConvertToVertexType(vpnts);
+
+	m_modelArray.push_back(model);
+
+	bool result = InitializeModelArray(device);
+	return result;
 }
 
 bool ModelLoadClass::InitializeModelArray(ID3D11Device* device)
@@ -136,7 +171,9 @@ bool ModelLoadClass::LoadModelFile(std::string ObjFileName)
 			ModelDataClass* memObjModel = new ModelDataClass();
 			if (!memObjModel)		return false;
 			
-			std::vector<ModelDataClass::VertexType*>& mVertexArray = memObjModel->GetVertexArrayRef();;
+			std::vector<ModelDataClass::VertexType*>& mVertexArray = memObjModel->GetVertexArrayRef();
+			std::vector<uint16_t>& mIndexArray = memObjModel->GetIndexArrayRef();
+			int tempIndex = 0;
 
 			memObjModel->SetModelName(word);
 			while (1)
@@ -161,6 +198,12 @@ bool ModelLoadClass::LoadModelFile(std::string ObjFileName)
 					re1 >> word;
 					re1 >> word;
 					memObjModel->SetMaterialName(word);
+				}
+
+				if (in.eof()) 
+				{
+					m_modelArray.push_back(memObjModel);
+					break;
 				}
 
 				//whether line begins with v, vn, vt, f (vertex, normal, texture, face)
@@ -210,7 +253,7 @@ bool ModelLoadClass::LoadModelFile(std::string ObjFileName)
 					bool IsTexExist;
 					re >> word;
 
-
+					//whether have texcoordinate
 					if (word.find("//") == std::string::npos)		IsTexExist = true;
 					else											IsTexExist = false;
 
@@ -373,6 +416,10 @@ bool ModelLoadClass::LoadModelFile(std::string ObjFileName)
 					mVertexArray.push_back(vertex1);
 					mVertexArray.push_back(vertex2);
 					mVertexArray.push_back(vertex3);
+					mIndexArray.push_back(tempIndex);
+					mIndexArray.push_back(tempIndex + 1);
+					mIndexArray.push_back(tempIndex + 2);
+					tempIndex += 3;
 				}
 			}
 		}

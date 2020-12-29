@@ -1,3 +1,6 @@
-﻿  modelloadclass.cpp
-     Creating library Bin\Desktop_2015\x64\Debug\DirectXTKSimpleSample_2015.lib and object Bin\Desktop_2015\x64\Debug\DirectXTKSimpleSample_2015.exp
+﻿  SkyBox.cpp
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\SkyBox.cpp(26,18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\SkyBox.cpp(72,22): warning C4018: '<': signed/unsigned mismatch
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\SkyBox.cpp(74,23): warning C4018: '<': signed/unsigned mismatch
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\SkyBox.cpp(99,22): warning C4018: '<': signed/unsigned mismatch
   DirectXTKSimpleSample_2015.vcxproj -> G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Debug\DirectXTKSimpleSample_2015.exe
