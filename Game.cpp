@@ -130,6 +130,7 @@ void Game::Update(DX::StepTimer const& timer)
 	MainCameraControlUpdate(timer);
 	m_Camera02.Update();
 
+	m_ParticleSystem->Frame(timer.GetElapsedSeconds(), m_deviceResources->GetD3DDeviceContext());
 
 	m_world = Matrix::Identity;
 
@@ -236,6 +237,11 @@ void Game::Render()
 	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_view, &m_projection, &m_Light, m_texture1.Get());
 	m_BasicModel3.Render(context);
 
+	//for particle system
+	m_world = SimpleMath::Matrix::Identity;
+	m_ParticleSystemShaderPair.EnableShader(context);
+	m_ParticleSystemShaderPair.SetShaderParameters(context, &m_world, &m_view, &m_projection, nullptr, m_ParticleSystem->GetTexture());
+	m_ParticleSystem->Render(context);
 	///////////////////////////////////////draw our sprite with the render texture displayed on it. 
 	m_sprites->Begin();
 		m_sprites->Draw(m_FirstRenderPass->getShaderResourceView(), m_CameraViewRect);
@@ -404,6 +410,9 @@ void Game::CreateDeviceDependentResources()
 	m_SkyBox = new SkyBox(device, 10, 10);
 	m_SkyBoxShaderPair.InitStandard(device, L"skymap_vs.cso", L"skymap_ps.cso");
 	CreateDDSTextureFromFile(device, L"skybox.dds", nullptr, m_skyboxTexture.ReleaseAndGetAddressOf());
+
+	m_ParticleSystem->Initialize(device, L"star.dds");
+	m_ParticleSystemShaderPair.InitStandard(device, L"particlesystem_vs.cso", L"particlesystem_ps.cso");
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.

@@ -13,6 +13,8 @@
 #include "RenderTexture.h"
 #include "modelloadclass.h"
 #include "SkyBox.h"
+#include "Sound.h"
+#include "ParticleSystem.h"
 
 
 // A basic game implementation that creates a D3D11 device and
@@ -102,6 +104,7 @@ private:
 	//Shaders
 	Shader																	m_BasicShaderPair;
 	Shader																	m_SkyBoxShaderPair;
+	Shader																	m_ParticleSystemShaderPair;
 	//ModelClass																m_BasicModel;
 	//ModelClass																m_BasicModel2;
 	//ModelClass																m_BasicModel3;
@@ -109,6 +112,7 @@ private:
     ModelLoadClass                                                          m_BasicModel2;
     ModelLoadClass                                                          m_BasicModel3;
     SkyBox*                                                                 m_SkyBox;
+    ParticleSystem*                                                         m_ParticleSystem;
 
 	//RenderTextures
 	RenderTexture*															m_FirstRenderPass;

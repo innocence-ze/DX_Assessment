@@ -7,7 +7,9 @@
 #define _SKYBOX_H_
 
 #pragma once
-#include "Shader.h"
+#include <directxmath.h>
+
+using namespace DirectX;
 
 struct SkyBoxVertex
 {

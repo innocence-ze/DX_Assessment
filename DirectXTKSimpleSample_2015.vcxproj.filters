@@ -47,6 +47,12 @@
     <ClInclude Include="SkyBox.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -78,6 +84,12 @@
       <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="SkyBox.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
   </ItemGroup>
@@ -117,6 +129,12 @@
       <Filter>Assets</Filter>
     </FxCompile>
     <FxCompile Include="skymap_ps.hlsl">
+      <Filter>Assets</Filter>
+    </FxCompile>
+    <FxCompile Include="particlesystem_vs.hlsl">
+      <Filter>Assets</Filter>
+    </FxCompile>
+    <FxCompile Include="particlesystem_ps.hlsl">
       <Filter>Assets</Filter>
     </FxCompile>
   </ItemGroup>

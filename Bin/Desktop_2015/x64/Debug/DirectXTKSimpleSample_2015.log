@@ -1,6 +1,9 @@
-﻿  SkyBox.cpp
-G:\AbertayPrograming\DX\Assessment\DX_Assessment\SkyBox.cpp(26,18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-G:\AbertayPrograming\DX\Assessment\DX_Assessment\SkyBox.cpp(72,22): warning C4018: '<': signed/unsigned mismatch
-G:\AbertayPrograming\DX\Assessment\DX_Assessment\SkyBox.cpp(74,23): warning C4018: '<': signed/unsigned mismatch
-G:\AbertayPrograming\DX\Assessment\DX_Assessment\SkyBox.cpp(99,22): warning C4018: '<': signed/unsigned mismatch
+﻿  Game.cpp
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(133,49): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(468,91): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(474,91): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(480,93): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(486,93): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(493,112): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(499,112): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
   DirectXTKSimpleSample_2015.vcxproj -> G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Debug\DirectXTKSimpleSample_2015.exe
