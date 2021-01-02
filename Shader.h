@@ -42,6 +42,14 @@ private:
 		float padding;
 	};
 
+	struct MtlBufferType
+	{
+		XMFLOAT3 AmbientMaterial;
+		XMFLOAT3 DiffuseMaterial;
+		XMFLOAT3 SpecularMaterial;
+		float SpecularPower;
+	};
+
 	//Shaders
 	Microsoft::WRL::ComPtr<ID3D11VertexShader>								m_vertexShader;
 	Microsoft::WRL::ComPtr<ID3D11PixelShader>								m_pixelShader;
@@ -49,5 +57,6 @@ private:
 	ID3D11Buffer*															m_matrixBuffer;
 	ID3D11SamplerState*														m_sampleState;
 	ID3D11Buffer*															m_lightBuffer;
+	ID3D11Buffer*															m_mtlBuffer;
 };
 

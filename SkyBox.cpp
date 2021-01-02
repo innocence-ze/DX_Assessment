@@ -165,6 +165,9 @@ void SkyBox::RenderBuffers(ID3D11DeviceContext* deviceContext)
 
 	// Set the index buffer to active in the input assembler so it can be rendered.
 	deviceContext->IASetIndexBuffer(m_sphereIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
+	// Set the type of primitive that should be rendered from this vertex buffer, in this case triangles.
+	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
 void SkyBox::Render(ID3D11DeviceContext* deviceContext)

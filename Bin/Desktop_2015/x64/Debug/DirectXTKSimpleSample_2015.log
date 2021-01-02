@@ -1,9 +1,58 @@
 ﻿  Game.cpp
-G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(133,49): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(207,115): error C2660: 'Shader::SetShaderParameters': function does not take 6 arguments
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Shader.h(17,7): message : see declaration of 'Shader::SetShaderParameters'
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(215,109): error C2660: 'Shader::SetShaderParameters': function does not take 6 arguments
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Shader.h(17,7): message : see declaration of 'Shader::SetShaderParameters'
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(228,109): error C2660: 'Shader::SetShaderParameters': function does not take 6 arguments
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Shader.h(17,7): message : see declaration of 'Shader::SetShaderParameters'
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(238,109): error C2660: 'Shader::SetShaderParameters': function does not take 6 arguments
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Shader.h(17,7): message : see declaration of 'Shader::SetShaderParameters'
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(267,131): error C2660: 'Shader::SetShaderParameters': function does not take 6 arguments
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Shader.h(17,7): message : see declaration of 'Shader::SetShaderParameters'
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(278,131): error C2660: 'Shader::SetShaderParameters': function does not take 6 arguments
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Shader.h(17,7): message : see declaration of 'Shader::SetShaderParameters'
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(288,131): error C2660: 'Shader::SetShaderParameters': function does not take 6 arguments
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Shader.h(17,7): message : see declaration of 'Shader::SetShaderParameters'
 G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(468,91): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(474,91): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(480,93): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(486,93): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(493,112): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
 G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(499,112): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-  DirectXTKSimpleSample_2015.vcxproj -> G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Debug\DirectXTKSimpleSample_2015.exe
+  modelloadclass.cpp
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(169,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(171,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(173,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(179,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(181,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(187,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(189,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(191,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(234,37): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(243,54): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(261,32): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(269,49): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(287,32): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(295,49): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(316,38): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(339,33): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(362,33): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(406,38): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(415,55): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(436,39): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(506,25): warning C4267: 'argument': conversion from 'size_t' to 'const _Ty', possible loss of data
+          with
+          [
+              _Ty=UINT
+          ]
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(522,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(534,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(536,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(538,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(550,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(552,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(554,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(567,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(569,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(571,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Generating Code...

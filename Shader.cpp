@@ -26,25 +26,28 @@ bool Shader::InitStandard(ID3D11Device * device, WCHAR * vsFilename, WCHAR * psF
 		return false;
 	}
 
+	//LOAD SHADER:	PIXEL
+	auto pixelShaderBuffer = DX::ReadData(psFilename);
+	result = device->CreatePixelShader(pixelShaderBuffer.data(), pixelShaderBuffer.size(), NULL, &m_pixelShader);
+	if (result != S_OK)
+	{
+		//if loading failed. 
+		return false;
+	}
+
 	// Create the vertex input layout description.
 	// This setup needs to match the VertexType stucture in the MeshClass and in the shader.
 	D3D11_INPUT_ELEMENT_DESC polygonLayout[] = {
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
 	// Get a count of the elements in the layout.
 	unsigned int numElements;
 	numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
-
 	// Create the vertex input layout.
-	device->CreateInputLayout(polygonLayout, numElements, vertexShaderBuffer.data(), vertexShaderBuffer.size(), &m_layout);
-	
-
-	//LOAD SHADER:	PIXEL
-	auto pixelShaderBuffer = DX::ReadData(psFilename);	
-	result = device->CreatePixelShader(pixelShaderBuffer.data(), pixelShaderBuffer.size(), NULL, &m_pixelShader);
+	result = device->CreateInputLayout(polygonLayout, numElements, vertexShaderBuffer.data(), vertexShaderBuffer.size(), &m_layout);
 	if (result != S_OK)
 	{
 		//if loading failed. 
@@ -83,7 +86,7 @@ bool Shader::InitStandard(ID3D11Device * device, WCHAR * vsFilename, WCHAR * psF
 	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 	samplerDesc.MipLODBias = 0.0f;
 	samplerDesc.MaxAnisotropy = 1;
-	samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
 	samplerDesc.BorderColor[0] = 0;
 	samplerDesc.BorderColor[1] = 0;
 	samplerDesc.BorderColor[2] = 0;
@@ -102,6 +105,7 @@ bool Shader::SetShaderParameters(ID3D11DeviceContext * context, DirectX::SimpleM
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	MatrixBufferType* dataPtr;
 	LightBufferType* lightPtr;
+	MtlBufferType* mtlPtr;
 	DirectX::SimpleMath::Matrix  tworld, tview, tproj;
 
 	// Transpose the matrices to prepare them for the shader.
@@ -124,6 +128,15 @@ bool Shader::SetShaderParameters(ID3D11DeviceContext * context, DirectX::SimpleM
 	lightPtr->padding = 0.0f;
 	context->Unmap(m_lightBuffer, 0);
 	context->PSSetConstantBuffers(0, 1, &m_lightBuffer);	//note the first variable is the mapped buffer ID.  Corresponding to what you set in the PS
+
+	//context->Map(m_mtlBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	//mtlPtr = (MtlBufferType*)mappedResource.pData;
+	//mtlPtr->AmbientMaterial = AmbientMaterial;
+	//mtlPtr->DiffuseMaterial = DiffuseMaterial;
+	//mtlPtr->SpecularMaterial = SpecularMaterial;
+	//mtlPtr->SpecularPower = SpecularPower;
+	//context->Unmap(m_mtlBuffer, 0);
+	//context->PSSetConstantBuffers(1, 1, &m_mtlBuffer);
 
 	//pass the desired texture to the pixel shader.
 	context->PSSetShaderResources(0, 1, &texture1);

@@ -3,7 +3,6 @@
 
 ParticleSystem::ParticleSystem()
 {
-	m_Texture = 0;
 	m_particleList = 0;
 	m_vertices = 0;
 	m_vertexBuffer = 0;
@@ -21,17 +20,17 @@ ParticleSystem::~ParticleSystem()
 }
 
 
-bool ParticleSystem::Initialize(ID3D11Device* device, WCHAR* textureFilename)
+bool ParticleSystem::Initialize(ID3D11Device* device)
 {
 	bool result;
 
 
-	// Load the texture that is used for the particles.
-	result = LoadTexture(device, textureFilename);
-	if (!result)
-	{
-		return false;
-	}
+	//// Load the texture that is used for the particles.
+	//result = LoadTexture(device, textureFilename);
+	//if (!result)
+	//{
+	//	return false;
+	//}
 
 	// Initialize the particle system.
 	result = InitializeParticleSystem();
@@ -59,8 +58,6 @@ void ParticleSystem::Shutdown()
 	// Release the particle system.
 	ShutdownParticleSystem();
 
-	// Release the texture used for the particles.
-	ReleaseTexture();
 
 	return;
 }
@@ -99,34 +96,21 @@ void ParticleSystem::Render(ID3D11DeviceContext* deviceContext)
 	return;
 }
 
-
-bool ParticleSystem::LoadTexture(ID3D11Device* device, WCHAR* filename)
-{
-	bool result;
-
-
-	// Create and Initialize the texture object.
-	result = CreateDDSTextureFromFile(device, filename, nullptr, &m_Texture);
-	if (!result)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-
-void ParticleSystem::ReleaseTexture()
-{
-	// Release the texture object.
-	if (m_Texture)
-	{
-		m_Texture->Release();
-		m_Texture = 0;
-	}
-
-	return;
-}
+//
+//bool ParticleSystem::LoadTexture(ID3D11Device* device, WCHAR* filename)
+//{
+//	bool result;
+//
+//
+//	// Create and Initialize the texture object.
+//	result = CreateDDSTextureFromFile(device, filename, nullptr, m_Texture.ReleaseAndGetAddressOf());
+//	if (!result)
+//	{
+//		return false;
+//	}
+//
+//	return true;
+//}
 
 
 bool ParticleSystem::InitializeParticleSystem()

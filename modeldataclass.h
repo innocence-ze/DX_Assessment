@@ -35,6 +35,14 @@ private:
 		XMFLOAT3 DiffuseMaterial;
 		XMFLOAT3 SpecularMaterial;
 		float SpecularPower;
+
+		OBJMaterial()
+		{
+			AmbientMaterial = XMFLOAT3(1, 1, 1);
+			DiffuseMaterial = XMFLOAT3(1, 1, 1);
+			SpecularMaterial = XMFLOAT3(1, 1, 1);
+			SpecularPower = 1;
+		}
 	};
 
 public:

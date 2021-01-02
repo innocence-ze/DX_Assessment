@@ -33,17 +33,16 @@ public:
 	ParticleSystem(const ParticleSystem&);
 	~ParticleSystem();
 
-	bool Initialize(ID3D11Device*, WCHAR*);
+	bool Initialize(ID3D11Device*);
 	void Shutdown();
 	bool Frame(float, ID3D11DeviceContext*);
 	void Render(ID3D11DeviceContext*);
 	
-	ID3D11ShaderResourceView* GetTexture()	{ return m_Texture; }
-	int GetIndexCount()						{ return m_indexCount; }
+	//Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> GetTexture()	{ return m_Texture; }
+	int GetIndexCount()												{ return m_indexCount; }
 
 private:
-	bool LoadTexture(ID3D11Device*, WCHAR*);
-	void ReleaseTexture();
+	//bool LoadTexture(ID3D11Device*, WCHAR*);
 
 	bool InitializeParticleSystem();
 	void ShutdownParticleSystem();
@@ -68,7 +67,7 @@ private:
 	int m_currentParticleCount;
 	float m_accumulatedTime;
 
-	ID3D11ShaderResourceView* m_Texture;
+	//Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_Texture;
 	ParticleType* m_particleList;
 	int m_vertexCount, m_indexCount;
 	ParticleVertexType* m_vertices;

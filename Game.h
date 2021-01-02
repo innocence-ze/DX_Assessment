@@ -100,11 +100,12 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_texture1;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_texture2;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_skyboxTexture;
+	//Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_particlesystemTexture;
 
 	//Shaders
 	Shader																	m_BasicShaderPair;
 	Shader																	m_SkyBoxShaderPair;
-	Shader																	m_ParticleSystemShaderPair;
+	//Shader																	m_ParticleSystemShaderPair;
 	//ModelClass																m_BasicModel;
 	//ModelClass																m_BasicModel2;
 	//ModelClass																m_BasicModel3;
@@ -112,7 +113,8 @@ private:
     ModelLoadClass                                                          m_BasicModel2;
     ModelLoadClass                                                          m_BasicModel3;
     SkyBox*                                                                 m_SkyBox;
-    ParticleSystem*                                                         m_ParticleSystem;
+    //ParticleSystem                                                          m_ParticleSystem;
+
 
 	//RenderTextures
 	RenderTexture*															m_FirstRenderPass;
