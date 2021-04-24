@@ -1,0 +1,86 @@
+﻿  compilation object save succeeded; see G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\light_vs.cso
+  compilation object save succeeded; see G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\particlesystem_ps.cso
+  compilation object save succeeded; see G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\particlesystem_vs.cso
+  compilation object save succeeded; see G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\skymap_ps.cso
+  compilation object save succeeded; see G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\skymap_vs.cso
+  pch.cpp
+  Camera.cpp
+  DeviceResources.cpp
+  Game.cpp
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(151,28): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(153,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(544,91): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(550,91): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(556,93): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(562,93): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(569,112): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Game.cpp(575,112): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+  Input.cpp
+  Light.cpp
+  Main.cpp
+  modelclass.cpp
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(33,39): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(34,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(49,39): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(50,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(66,39): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(67,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(258,28): warning C4477: 'fscanf_s' : format string '%s' requires an argument of type 'unsigned int', but variadic argument 2 has type 'size_t'
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelclass.cpp(258,28): message : this argument is used as a buffer size
+  modeldataclass.cpp
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modeldataclass.cpp(66,37): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modeldataclass.cpp(67,35): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  modelloadclass.cpp
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(169,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(171,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(173,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(179,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(181,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(187,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(189,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(191,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(234,37): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(243,54): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(261,32): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(269,49): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(287,32): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(295,49): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(316,38): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(339,33): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(362,33): warning C4267: '=': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(406,38): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(415,55): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(436,39): warning C4267: 'initializing': conversion from 'size_t' to 'UINT', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(506,25): warning C4267: 'argument': conversion from 'size_t' to 'const _Ty', possible loss of data
+          with
+          [
+              _Ty=UINT
+          ]
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(522,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(534,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(536,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(538,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(550,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(552,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(554,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(567,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(569,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\modelloadclass.cpp(571,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  ParticleSystem.cpp
+  RenderTexture.cpp
+  Shader.cpp
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Shader.cpp(108,17): warning C4101: 'mtlPtr': unreferenced local variable
+  SkyBox.cpp
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\SkyBox.cpp(26,18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\SkyBox.cpp(72,22): warning C4018: '<': signed/unsigned mismatch
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\SkyBox.cpp(74,23): warning C4018: '<': signed/unsigned mismatch
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\SkyBox.cpp(99,22): warning C4018: '<': signed/unsigned mismatch
+  Sound.cpp
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Sound.cpp(153,68): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Sound.cpp(252,62): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+     Creating library Bin\Desktop_2015\x64\Release\DirectXTKSimpleSample_2015.lib and object Bin\Desktop_2015\x64\Release\DirectXTKSimpleSample_2015.exp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 1302 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  DirectXTKSimpleSample_2015.vcxproj -> G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\DirectXTKSimpleSample_2015.exe

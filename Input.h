@@ -15,6 +15,10 @@ struct InputCommands
 	bool rotLeft;
 	bool rotDown;
 	bool rotUp;
+
+	bool wireframe; //KEY f
+	bool miniMap;	//KEY m
+	bool pauseMusic;	//KEY p
 };
 
 
@@ -29,7 +33,8 @@ public:
 	InputCommands getGameInput();
 	int GetMouseDetX();
 	int GetMouseDetY();
-
+	//0 left 1 right
+	bool GetMouseButtonDown(int mouse);
 
 private:
 	bool m_quitApp;

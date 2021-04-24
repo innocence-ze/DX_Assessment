@@ -1,0 +1,7 @@
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\light_ps.cso
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\light_vs.cso
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\particlesystem_ps.cso
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\particlesystem_vs.cso
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\skymap_ps.cso
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\skymap_vs.cso
+G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\DirectXTKSimpleSample_2015.exe

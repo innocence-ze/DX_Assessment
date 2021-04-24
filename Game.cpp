@@ -24,6 +24,8 @@ Game::Game() noexcept(false)
 
 Game::~Game()
 {
+	m_Sound->Shutdown();
+	m_SoundClick->Shutdown();
 #ifdef DXTK_AUDIO
 	if (m_audEngine)
 	{
@@ -66,8 +68,24 @@ void Game::Initialize(HWND window, int width, int height)
 	m_Camera01.setPosition(Vector3(0.0f, 0.0f, 0.0f));
 	m_Camera01.setRotation(Vector3(-90.0f, -180.0f, 0.0f));	//orientation is -90 becuase zero will be looking up at the sky straight up. 
 
-	m_Camera02.setPosition(Vector3(0.0f, 10.0f, 0.0f));
+	m_Camera02.setPosition(Vector3(0.0f, 30.0f, 0.0f));
 	m_Camera02.setRotation(Vector3(-180.0f, 0.0f, 0.0f));
+
+
+	m_Sound = new Sound;
+	bool result = m_Sound->Initialize(window, "musicmono_adpcm.wav", true);
+	if (!result)
+	{
+		MessageBox(window, L"Couldn't initialize Direct sound", L"Error", MB_OK);
+	}
+
+	m_SoundClick = new Sound;
+	result = m_SoundClick->Initialize(window, "sound01.wav", false);
+	m_SoundClick->PauseWaveFile();
+	if (!result)
+	{
+		MessageBox(window, L"Couldn't initialize Direct sound", L"Error", MB_OK);
+	}
 
 
 #ifdef DXTK_AUDIO
@@ -129,8 +147,10 @@ void Game::Update(DX::StepTimer const& timer)
 {
 	MainCameraControlUpdate(timer);
 	m_Camera02.Update();
+	double t = timer.GetTotalSeconds();
+	lerpTimer = fmod(t, 10.0) / 10;
 
-	//m_ParticleSystem.Frame(timer.GetElapsedSeconds(), m_deviceResources->GetD3DDeviceContext());
+	m_ParticleSystem.Frame(timer.GetElapsedSeconds(), m_deviceResources->GetD3DDeviceContext());
 
 	m_world = Matrix::Identity;
 
@@ -158,6 +178,11 @@ void Game::Update(DX::StepTimer const& timer)
 		}
 	}
 #endif
+
+	if (m_input.GetMouseButtonDown(0))
+	{
+		m_SoundClick->PlayWaveFile();
+	}
 
 
 	if (m_input.Quit())
@@ -193,9 +218,10 @@ void Game::Render()
 	context->OMSetBlendState(m_states->Opaque(), nullptr, 0xFFFFFFFF);
 	context->OMSetDepthStencilState(m_states->DepthDefault(), 0);
 	context->RSSetState(m_states->CullClockwise());
-	//	context->RSSetState(m_states->Wireframe());
+	if(m_gameInputCommands.wireframe)
+		context->RSSetState(m_states->Wireframe());
 
-		//create our render to texture.
+	//create our render to texture.
 	RenderTexturePass1();
 
 	/////////////////////////////////////////////////////////////draw skybox
@@ -210,38 +236,55 @@ void Game::Render()
 
 	/////////////////////////////////////////////////////////////draw our scene normally. 
 	m_world = SimpleMath::Matrix::Identity;
-	// Turn our shaders on,  set parameters
+	m_world = m_world * SimpleMath::Matrix::CreateTranslation(0, 3, 0);
 	m_BasicShaderPair.EnableShader(context);
 	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_view, &m_projection, &m_Light, m_texture1.Get());
+	m_ModelSphere.Render(context);
 
-	//render our model
-	m_BasicModel.Render(context);
-
-	////prepare transform for second object. 
+	////prepare transform for statue. 
 	m_world = SimpleMath::Matrix::Identity;
-	SimpleMath::Matrix newPosition1 = SimpleMath::Matrix::CreateTranslation(2.0f, 0.0f, 0.0f);
-	SimpleMath::Matrix newScale1 = SimpleMath::Matrix::CreateScale(0.01f, 0.01f, 0.01f);
-	m_world = m_world *newScale1* newPosition1;
-
-	//setup and draw sphere
+	SimpleMath::Matrix newPosition1 = SimpleMath::Matrix::CreateTranslation(5.0f, -0.7f, 0.0f);
+	SimpleMath::Matrix newScale1 = SimpleMath::Matrix::CreateScale(1.5f, 1.5f, 1.5f);
+	SimpleMath::Quaternion rot1 = SimpleMath::Quaternion::CreateFromYawPitchRoll(a2r * -90, 0, 0);
+	m_world = m_world * SimpleMath::Matrix::CreateFromQuaternion(rot1) * newScale1* newPosition1;
 	m_BasicShaderPair.EnableShader(context);
 	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_view, &m_projection, &m_Light, m_texture2.Get());
-	m_BasicModel2.Render(context);
+	m_ModelStatue.Render(context);
 
 	//prepare transform for floor object. 
 	m_world = SimpleMath::Matrix::Identity; //set world back to identity
 	SimpleMath::Matrix newPosition3 = SimpleMath::Matrix::CreateTranslation(0.0f, -0.6f, 0.0f);
 	m_world = m_world * newPosition3;
-
-	//setup and draw cube
 	m_BasicShaderPair.EnableShader(context);
 	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_view, &m_projection, &m_Light, m_texture1.Get());
-	m_BasicModel3.Render(context);
+	m_ModelFloor.Render(context);
+
+	//prepare for stone.
+	m_world = SimpleMath::Matrix::Identity;
+	SimpleMath::Matrix newScale4 = SimpleMath::Matrix::CreateScale(0.5f, 0.5f, 0.5f);
+	SimpleMath::Matrix newPosition4 = SimpleMath::Matrix::CreateTranslation(-5, -0.7f, 0);
+	SimpleMath::Quaternion rot4 = SimpleMath::Quaternion::CreateFromYawPitchRoll(a2r * 90, 0, 0);
+	m_world = m_world * Matrix::CreateFromQuaternion(rot4) * newScale4 * newPosition4;
+	m_BasicShaderPair.EnableShader(context);
+	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_view, &m_projection, &m_Light, m_texture3.Get());
+	m_ModelStone.Render(context);
+
+	//prepare for EvilDrone
+	m_world = SimpleMath::Matrix::Identity;
+	SimpleMath::Matrix newPosition5 = SimpleMath::Matrix::CreateTranslation(0, 3, 7);
+	SimpleMath::Quaternion oldRotation5 = SimpleMath::Quaternion::CreateFromYawPitchRoll(a2r * 30, a2r*40, a2r * 20);
+	SimpleMath::Quaternion targetRotation5 = SimpleMath::Quaternion::CreateFromYawPitchRoll(a2r * 90, a2r * 90, a2r * 80);
+
+	SimpleMath::Quaternion newRotation5 = SimpleMath::Quaternion::Slerp(oldRotation5, targetRotation5, lerpTimer);
+	m_world = m_world * SimpleMath::Matrix::CreateTranslation(0, 7, 0) * SimpleMath::Matrix::CreateFromQuaternion(newRotation5) * newPosition5;
+	m_BasicShaderPair.EnableShader(context);
+	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_view, &m_projection, &m_Light, m_texture4.Get());
+	m_ModelEvilDrone.Render(context);
 
 	////for particle system
 	//m_world = SimpleMath::Matrix::Identity;
 	//m_ParticleSystemShaderPair.EnableShader(context);
-	//m_ParticleSystemShaderPair.SetShaderParameters(context, &m_world, &m_view, &m_projection, nullptr, m_particlesystemTexture.Get());
+	//m_ParticleSystemShaderPair.SetShaderParameters(context, &m_world, &m_view, &m_projection, &m_Light, m_particlesystemTexture.Get());
 	//m_ParticleSystem.Render(context);
 	///////////////////////////////////////draw our sprite with the render texture displayed on it. 
 	m_sprites->Begin();
@@ -260,33 +303,63 @@ void Game::RenderTexturePass1()
 	// Set the render target to be the render to texture.
 	m_FirstRenderPass->setRenderTarget(context);
 	// Clear the render to texture.
-	m_FirstRenderPass->clearRenderTarget(context, 0.0f, 0.0f, 1.0f, 1.0f);
+	m_FirstRenderPass->clearRenderTarget(context, 0.8f, 0.8f, 0.8f, 0.8f);
 
-	// Turn our shaders on,  set parameters
+	m_world = SimpleMath::Matrix::Identity;
+	SimpleMath::Matrix miniCamPosition = SimpleMath::Matrix::CreateTranslation(m_Camera01.getPosition().x, 10, m_Camera01.getPosition().z);
+	m_world = m_world * miniCamPosition;
 	m_BasicShaderPair.EnableShader(context);
 	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_Camera02.getCameraMatrix(), &m_projection, &m_Light, m_texture1.Get());
+	m_ModeMinicam.Render(context);
 
-	//render our model
-	m_BasicModel.Render(context);
+	// render sphere
+	m_world = SimpleMath::Matrix::Identity;
+	m_world = m_world * SimpleMath::Matrix::CreateTranslation(0, 3, 0);
+	m_BasicShaderPair.EnableShader(context);
+	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_Camera02.getCameraMatrix(), &m_projection, &m_Light, m_texture1.Get());
+	m_ModelSphere.Render(context);
 
-	////prepare transform for second object. 
-	//SimpleMath::Matrix newPosition = SimpleMath::Matrix::CreateTranslation(2.0f, 0.0f, 0.0f);
-	//m_world = m_world * newPosition;
-
-	//setup and draw sphere
+	// render statue
+	m_world = SimpleMath::Matrix::Identity;
+	SimpleMath::Matrix newPosition1 = SimpleMath::Matrix::CreateTranslation(5.0f, -0.7f, 0.0f);
+	SimpleMath::Matrix newScale1 = SimpleMath::Matrix::CreateScale(1.5f, 1.5f, 1.5f);
+	SimpleMath::Quaternion rot1 = SimpleMath::Quaternion::CreateFromYawPitchRoll(a2r * -90, 0, 0);
+	m_world = m_world * SimpleMath::Matrix::CreateFromQuaternion(rot1) * newScale1 * newPosition1;
 	m_BasicShaderPair.EnableShader(context);
 	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_Camera02.getCameraMatrix(), &m_projection, &m_Light, m_texture2.Get());
-	m_BasicModel2.Render(context);
+	m_ModelStatue.Render(context);
 
-	//prepare transform for floor object. 
+	// render floor 
 	m_world = SimpleMath::Matrix::Identity; //set world back to identity
-	SimpleMath::Matrix newPosition2 = SimpleMath::Matrix::CreateTranslation(0.0f, -0.6f, 0.0f);
-	m_world = m_world * newPosition2;
-
-	//setup and draw cube
+	SimpleMath::Matrix newPosition3 = SimpleMath::Matrix::CreateTranslation(0.0f, -0.6f, 0.0f);
+	m_world = m_world * newPosition3;
 	m_BasicShaderPair.EnableShader(context);
 	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_Camera02.getCameraMatrix(), &m_projection, &m_Light, m_texture1.Get());
-	m_BasicModel3.Render(context);
+	m_ModelFloor.Render(context);
+
+	//prepare for stone.
+	m_world = SimpleMath::Matrix::Identity;
+	SimpleMath::Matrix newScale4 = SimpleMath::Matrix::CreateScale(0.5f, 0.5f, 0.5f);
+	SimpleMath::Matrix newPosition4 = SimpleMath::Matrix::CreateTranslation(-5, -0.7f, 0);
+	SimpleMath::Quaternion rot4 = SimpleMath::Quaternion::CreateFromYawPitchRoll(a2r * 90, 0, 0);
+	m_world = m_world * Matrix::CreateFromQuaternion(rot4) * newScale4 * newPosition4;
+	m_BasicShaderPair.EnableShader(context);
+	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_Camera02.getCameraMatrix(), &m_projection, &m_Light, m_texture3.Get());
+	m_ModelStone.Render(context);
+
+	//prepare for EvilDrone
+	m_world = SimpleMath::Matrix::Identity;
+	SimpleMath::Matrix newPosition5 = SimpleMath::Matrix::CreateTranslation(0, 3, 7);
+	SimpleMath::Quaternion oldRotation5 = SimpleMath::Quaternion::CreateFromYawPitchRoll(a2r * 30, a2r * 40, a2r * 20);
+	SimpleMath::Quaternion targetRotation5 = SimpleMath::Quaternion::CreateFromYawPitchRoll(a2r * 90, a2r * 90, a2r * 80);
+
+	SimpleMath::Quaternion newRotation5 = SimpleMath::Quaternion::Slerp(oldRotation5, targetRotation5, lerpTimer);
+	m_world = m_world * SimpleMath::Matrix::CreateTranslation(0, 7, 0) * SimpleMath::Matrix::CreateFromQuaternion(newRotation5) * newPosition5;
+	m_BasicShaderPair.EnableShader(context);
+	m_BasicShaderPair.SetShaderParameters(context, &m_world, &m_Camera02.getCameraMatrix(), &m_projection, &m_Light, m_texture4.Get());
+	m_ModelEvilDrone.Render(context);
+
+
 
 	// Reset the render target back to the original back buffer and not the render to texture anymore.	
 	context->OMSetRenderTargets(1, &renderTargetView, depthTargetView);
@@ -389,20 +462,21 @@ void Game::CreateDeviceDependentResources()
 	m_batch = std::make_unique<PrimitiveBatch<VertexPositionColor>>(context);
 
 	//setup our test model
-	//m_BasicModel.InitializeSphere(device);
-	m_BasicModel.InitializeSphere(device, 1);
-
-	//m_BasicModel2.InitializeModel(device,"drone.obj");
-	//m_BasicModel3.InitializeBox(device, 10.0f, 0.1f, 10.0f);	//box includes dimensions
-	m_BasicModel2.Initialize(device, "Street Lamp.obj");
-	m_BasicModel3.InitializeBox(device, 10, 0.1f, 10);
+	m_ModelSphere.InitializeSphere(device, 1);
+	m_ModelStatue.Initialize(device, "Statue.obj");
+	m_ModelFloor.InitializeBox(device, 15, 0.1f, 15);
+	m_ModeMinicam.InitializeSphere(device, 2);
+	m_ModelStone.Initialize(device, "Stone.obj");
+	m_ModelEvilDrone.Initialize(device, "drone.obj");
 
 	//load and set up our Vertex and Pixel Shaders
 	m_BasicShaderPair.InitStandard(device, L"light_vs.cso", L"light_ps.cso");
 
 	//load Textures
 	CreateDDSTextureFromFile(device, L"seafloor.dds", nullptr, m_texture1.ReleaseAndGetAddressOf());
-	CreateDDSTextureFromFile(device, L"EvilDrone_Diff.dds", nullptr, m_texture2.ReleaseAndGetAddressOf());
+	CreateDDSTextureFromFile(device, L"Statue.dds", nullptr, m_texture2.ReleaseAndGetAddressOf());
+	CreateDDSTextureFromFile(device, L"Stone.dds", nullptr, m_texture3.ReleaseAndGetAddressOf());
+	CreateDDSTextureFromFile(device, L"EvilDrone_Diff.dds", nullptr, m_texture4.ReleaseAndGetAddressOf());
 
 
 	//Initialise Render to texture
@@ -412,9 +486,11 @@ void Game::CreateDeviceDependentResources()
 	m_SkyBoxShaderPair.InitStandard(device, L"skymap_vs.cso", L"skymap_ps.cso");
 	CreateDDSTextureFromFile(device, L"skybox.dds", nullptr, m_skyboxTexture.ReleaseAndGetAddressOf());
 
-	//m_ParticleSystem.Initialize(device);
-	//CreateDDSTextureFromFile(device, L"skybox.dds", nullptr, m_particlesystemTexture.ReleaseAndGetAddressOf());
-	//m_ParticleSystemShaderPair.InitStandard(device, L"particlesystem_vs.cso", L"particlesystem_ps.cso");
+	m_ParticleSystem.Initialize(device);
+	CreateDDSTextureFromFile(device, L"skybox.dds", nullptr, m_particlesystemTexture.ReleaseAndGetAddressOf());
+	m_ParticleSystemShaderPair.InitStandard(device, L"particlesystem_vs.cso", L"particlesystem_ps.cso");
+
+
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.

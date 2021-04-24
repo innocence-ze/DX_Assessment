@@ -51,7 +51,10 @@ public:
     void GetDefaultSize( int& width, int& height ) const;
 	
 private:
-
+    float a2r = 3.14159f / 180;
+    float r2a = 180 / 3.14159f;
+    float lerpTimer;
+    
 	struct MatrixBufferType
 	{
 		DirectX::XMMATRIX world;
@@ -99,27 +102,34 @@ private:
 	//textures 
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_texture1;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_texture2;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_texture3;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_texture4;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_skyboxTexture;
-	//Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_particlesystemTexture;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>                        m_particlesystemTexture;
 
 	//Shaders
 	Shader																	m_BasicShaderPair;
 	Shader																	m_SkyBoxShaderPair;
-	//Shader																	m_ParticleSystemShaderPair;
+	Shader																	m_ParticleSystemShaderPair;
 	//ModelClass																m_BasicModel;
 	//ModelClass																m_BasicModel2;
 	//ModelClass																m_BasicModel3;
-    ModelLoadClass                                                          m_BasicModel;
-    ModelLoadClass                                                          m_BasicModel2;
-    ModelLoadClass                                                          m_BasicModel3;
+    ModelLoadClass                                                          m_ModelSphere;
+    ModelLoadClass                                                          m_ModelStatue;
+    ModelLoadClass                                                          m_ModelFloor;
+    ModelLoadClass                                                          m_ModelStone;
+    ModelLoadClass                                                          m_ModeMinicam;
+    ModelLoadClass                                                          m_ModelEvilDrone;
     SkyBox*                                                                 m_SkyBox;
-    //ParticleSystem                                                          m_ParticleSystem;
+    ParticleSystem                                                          m_ParticleSystem;
 
 
 	//RenderTextures
 	RenderTexture*															m_FirstRenderPass;
 	RECT																	m_fullscreenRect;
 	RECT																	m_CameraViewRect;
+    Sound*                                                                  m_Sound;
+    Sound*                                                                  m_SoundClick;
 	
 
 

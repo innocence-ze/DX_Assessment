@@ -61,6 +61,9 @@ void Input::Update()
 	if (kb.S)	m_GameInput.back = true;
 	else		m_GameInput.back = false;
 
+	if (m_KeyboardTracker.IsKeyPressed(DirectX::Keyboard::F))	m_GameInput.wireframe = (m_GameInput.wireframe ? false : true);
+	if (m_KeyboardTracker.IsKeyPressed(DirectX::Keyboard::M))	m_GameInput.miniMap = (m_GameInput.miniMap ? false : true);
+	if (m_KeyboardTracker.IsKeyPressed(DirectX::Keyboard::P))	m_GameInput.pauseMusic = (m_GameInput.pauseMusic ? false : true);
 
 	m_mouseDetX = mouse.x - m_mouseLastX;
 	m_mouseDetY = mouse.y - m_mouseLastY;
@@ -103,4 +106,17 @@ int Input::GetMouseDetX()
 int Input::GetMouseDetY() 
 {
 	return m_mouseDetY;
+}
+
+bool Input::GetMouseButtonDown(int mouse)
+{
+	if (mouse == 0 && m_MouseTracker.leftButton == DirectX::Mouse::ButtonStateTracker::ButtonState::PRESSED)
+	{
+		return true;
+	}
+	if (mouse == 1 && m_MouseTracker.rightButton == DirectX::Mouse::ButtonStateTracker::ButtonState::PRESSED)
+	{
+		return true;
+	}
+	return false;
 }

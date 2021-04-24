@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\DirectXTKSimpleSample_2015.exe</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles>
+    <ContentFile>
+      <FullPath>G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\light_ps.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\light_vs.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\particlesystem_ps.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\particlesystem_vs.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\skymap_ps.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>G:\AbertayPrograming\DX\Assessment\DX_Assessment\Bin\Desktop_2015\x64\Release\skymap_vs.cso</FullPath>
+    </ContentFile>
+  </ContentFiles>
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>

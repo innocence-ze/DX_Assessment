@@ -2,11 +2,17 @@
 Texture2D shaderTexture : register(t0);
 SamplerState SampleType : register(s0);
 
-
+cbuffer LightBuffer : register(b0)
+{
+    float4 ambientColor;
+    float4 diffuseColor;
+    float3 lightPosition;
+    float padding;
+};
 struct PixelInputType
 {
     float4 position : SV_POSITION;
-    float2 tex : TEXCOORD;
+    float2 tex : TEXCOORD0;
     float4 color : COLOR;
 };
 

@@ -113,12 +113,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="colour_ps.hlsl">
-      <Filter>Assets</Filter>
-    </FxCompile>
-    <FxCompile Include="colour_vs.hlsl">
-      <Filter>Assets</Filter>
-    </FxCompile>
     <FxCompile Include="light_ps.hlsl">
       <Filter>Assets</Filter>
     </FxCompile>

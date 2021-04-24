@@ -20,14 +20,14 @@ cbuffer MatrixBuffer : register(b0)
 struct InputType
 {
     float4 position : POSITION;
-    float2 tex : TEXCOORD;
-    float4 color : COLOR;
+    float2 tex : TEXCOORD0;
+    float3 normal : NORMAL;
 };
 
 struct PixelInputType
 {
     float4 position : SV_POSITION;
-    float2 tex : TEXCOORD;
+    float2 tex : TEXCOORD0;
     float4 color : COLOR;
 };
 
@@ -48,11 +48,12 @@ PixelInputType main(InputType input)
     output.position = mul(output.position, viewMatrix);
     output.position = mul(output.position, projectionMatrix);
 
+
     // Store the texture coordinates for the pixel shader.
     output.tex = input.tex;
 
     // Store the particle color for the pixel shader. 
-    output.color = input.color;
+    output.color = float4( input.normal,1);
 
     return output;
 }
